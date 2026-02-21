@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dan Koe · Knowledge Base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.16"></script>
+<style>
+:root {
+  --bg:          #f5f2eb;
+  --bg-card:     #ffffff;
+  --bg-hover:    #faf8f3;
+  --bg-reader:   #ffffff;
+  --border:      #e4dfd5;
+  --border-dark: #cec8bc;
+  --text-1:      #1a1916;
+  --text-2:      #5c5850;
+  --text-3:      #9c9890;
+  --accent:      #bf4a1e;
+  --accent-light:#f5ede8;
+  --accent-mid:  rgba(191,74,30,0.12);
+  --cat-biz:     #2563a8;
+  --cat-content: #3a8c3a;
+  --cat-future:  #8b3fa8;
+  --cat-prod:    #1a8a7a;
+  --cat-mindset: #bf4a1e;
+  --zh-bg:       #f0f7f4;
+  --zh-border:   #a8d4c8;
+  --zh-text:     #1a3530;
+  --r: 10px;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --t: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+
+/* ── HEADER ── */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px;
+  background: rgba(245,242,235,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+}
+.logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+.logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--text-1); letter-spacing: -0.02em;
+}
+.logo-sep { color: var(--border-dark); font-size: 1rem; }
+.logo-sub {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.header-right {
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.header-count {
+  font-size: 0.78rem; color: var(--text-3);
+}
+.header-count strong { color: var(--accent); }
+
+/* ── HERO ── */
+.hero {
+  padding: 96px 2rem 0;
+  max-width: 1100px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2.5rem;
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2rem; align-items: end;
+}
+.hero-eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600;
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); display: block; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 700; line-height: 1.1; letter-spacing: -0.03em;
+  color: var(--text-1); margin-bottom: 1rem;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-desc { font-size: 0.95rem; color: var(--text-2); max-width: 500px; line-height: 1.7; }
+.hero-stats {
+  display: flex; flex-direction: column; gap: 0.8rem;
+  padding: 1.5rem; border: 1px solid var(--border);
+  border-radius: var(--r); background: var(--bg-card);
+  box-shadow: var(--shadow-sm); min-width: 180px;
+}
+.stat-item { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--text-1);
+}
+.stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
+
+/* ── TOOLBAR ── */
+.toolbar {
+  position: sticky; top: 60px; z-index: 90;
+  background: rgba(245,242,235,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+}
+.toolbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.search-wrap {
+  position: relative; flex: 1; min-width: 200px; max-width: 360px;
+}
+.search-icon {
+  position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%);
+  color: var(--text-3); pointer-events: none; width: 15px; height: 15px;
+}
+.search-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.55rem 0.85rem 0.55rem 2.4rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  color: var(--text-1); outline: none; transition: var(--t);
+}
+.search-input::placeholder { color: var(--text-3); }
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-mid);
+}
+.search-clear {
+  position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--text-3);
+  cursor: pointer; font-size: 0.85rem; display: none; padding: 2px;
+}
+.filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.filter-btn {
+  padding: 0.35rem 0.9rem;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-2); font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: var(--t);
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+/* ── MAIN LAYOUT ── */
+.main {
+  max-width: 1100px; margin: 0 auto;
+  padding: 2rem 2rem 5rem;
+}
+.results-info {
+  font-size: 0.78rem; color: var(--text-3); margin-bottom: 1.25rem;
+}
+.results-info strong { color: var(--text-2); }
+
+/* ── GRID ── */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── CARD ── */
+.article-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: box-shadow var(--t), transform var(--t);
+  box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 0.7rem;
+  position: relative; overflow: hidden;
+}
+.article-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--cat-color, var(--border-dark));
+}
+.article-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.card-meta { display: flex; align-items: center; gap: 0.65rem; }
+.cat-pill {
+  font-size: 0.66rem; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px;
+  background: var(--cat-bg, #eee);
+  color: var(--cat-color, #666);
+}
+.card-time { font-size: 0.72rem; color: var(--text-3); display: flex; align-items: center; gap: 3px; }
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-weight: 600;
+  color: var(--text-1); line-height: 1.3; letter-spacing: -0.01em;
+}
+.card-excerpt { font-size: 0.83rem; color: var(--text-2); line-height: 1.6; }
+.card-excerpt { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.card-meta-bottom { font-size: 0.7rem; color: var(--text-3); font-family: 'DM Mono', monospace; }
+.card-read-arrow { color: var(--accent); font-size: 0.85rem; opacity: 0; transition: opacity var(--t), transform var(--t); transform: translateX(-4px); }
+.article-card:hover .card-read-arrow { opacity: 1; transform: translateX(0); }
+
+/* Category theming */
+.article-card[data-cat="Business & Money"]   { --cat-color: var(--cat-biz);     --cat-bg: rgba(37,99,168,0.1); }
+.article-card[data-cat="Content & Writing"]  { --cat-color: var(--cat-content); --cat-bg: rgba(58,140,58,0.1); }
+.article-card[data-cat="Future & AI"]        { --cat-color: var(--cat-future);  --cat-bg: rgba(139,63,168,0.1); }
+.article-card[data-cat="Productivity & Focus"] { --cat-color: var(--cat-prod); --cat-bg: rgba(26,138,122,0.1); }
+.article-card[data-cat="Mindset & Growth"]   { --cat-color: var(--cat-mindset); --cat-bg: rgba(191,74,30,0.1); }
+
+/* ── EMPTY / LOADING ── */
+.state-box {
+  text-align: center; padding: 5rem 2rem; color: var(--text-3);
+  grid-column: 1 / -1;
+}
+.state-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-2); margin-bottom: 0.5rem; }
+.state-box p { font-size: 0.9rem; }
+.spinner {
+  width: 28px; height: 28px;
+  border: 2px solid var(--border); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin 0.75s linear infinite; margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── READER OVERLAY ── */
+.reader-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: #fff;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.reader-overlay.open { transform: translateX(0); }
+
+/* ── READER TOPBAR（冻结，不随内容滚动） ── */
+.reader-topbar {
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.reading-progress {
+  height: 3px; background: var(--border);
+}
+.reading-progress-bar {
+  height: 100%; background: var(--accent); width: 0%;
+  transition: width 0.1s linear;
+}
+.reader-topbar-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+/* ── VIEW TABS ── */
+.view-tabs {
+  display: flex; gap: 0;
+}
+.view-tab {
+  padding: 0.65rem 1.1rem;
+  border: none; border-bottom: 2px solid transparent;
+  background: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+  color: var(--text-2); transition: var(--t);
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.view-tab:hover { color: var(--text-1); }
+.view-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* ── CLOSE BUTTON (in topbar) ── */
+.reader-close {
+  background: none; border: 1px solid var(--border);
+  border-radius: 50%; width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-2); transition: var(--t);
+  flex-shrink: 0;
+}
+.reader-close:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── READER BODY（可滚动内容区） ── */
+.reader-body {
+  flex: 1; overflow-y: auto;
+}
+.reader-inner {
+  max-width: 1080px; margin: 0 auto;
+  padding: 2.5rem 3rem 6rem;
+}
+
+/* ── MIND MAP VIEW ── */
+.reader-mindmap {
+  flex: 1; overflow: hidden;
+  display: flex; flex-direction: column;
+  padding: 1.25rem;
+  background: #fafaf8;
+}
+.mindmap-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.mindmap-hint {
+  font-size: 0.75rem; color: var(--text-3);
+}
+.mindmap-fit-btn {
+  font-size: 0.75rem; padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border); border-radius: 5px;
+  background: #fff; cursor: pointer; color: var(--text-2);
+  font-family: 'DM Sans', sans-serif; transition: var(--t);
+}
+.mindmap-fit-btn:hover { border-color: var(--accent); color: var(--accent); }
+.mindmap-svg-wrap {
+  flex: 1;
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: #fff; overflow: hidden; position: relative;
+}
+#markmapSvg {
+  width: 100%; height: 100%; display: block;
+}
+.mindmap-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; color: var(--text-3);
+  flex-direction: column; gap: 0.75rem;
+}
+
+/* Header */
+.reader-header { margin-bottom: 2.5rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border); }
+.reader-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.reader-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 700; line-height: 1.15; letter-spacing: -0.025em;
+  color: var(--text-1); margin-bottom: 1rem;
+}
+.reader-meta {
+  font-size: 0.8rem; color: var(--text-3);
+  display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+}
+.reader-meta a { color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 0.35rem; }
+.reader-meta a:hover { text-decoration: underline; }
+
+/* ── LANGUAGE TOGGLE ── */
+.lang-toggle {
+  display: none; /* 中文/双语切换暂时隐藏 */
+  align-items: center;
+  gap: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px;
+  margin-top: 1.25rem;
+  width: fit-content;
+}
+.lang-btn {
+  padding: 0.35rem 0.85rem;
+  border: none; background: transparent; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500;
+  color: var(--text-2); border-radius: 4px; transition: var(--t);
+}
+.lang-btn:hover { color: var(--text-1); }
+.lang-btn.active { background: var(--bg-card); color: var(--accent); font-weight: 600; box-shadow: var(--shadow-sm); }
+
+/* ── TOC ── */
+.toc {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 1.1rem 1.4rem;
+  margin-bottom: 2.5rem;
+}
+.toc-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); font-weight: 700; margin-bottom: 0.6rem; }
+.toc-list { list-style: none; counter-reset: toc; display: flex; flex-direction: column; gap: 0.3rem; }
+.toc-list li a {
+  font-size: 0.84rem; color: var(--text-2); text-decoration: none;
+  display: flex; align-items: baseline; gap: 0.6rem; transition: color var(--t);
+}
+.toc-list li a::before {
+  content: counter(toc);
+  counter-increment: toc;
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  color: var(--text-3); min-width: 1.4em;
+}
+.toc-list li a:hover { color: var(--accent); }
+
+/* ── ARTICLE SECTIONS ── */
+.article-section { margin-bottom: 2.75rem; scroll-margin-top: 1.5rem; }
+
+.section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 600; letter-spacing: -0.015em;
+  color: var(--text-1); margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+}
+
+/* ── BILINGUAL PARAGRAPH ── */
+.para-block { margin-bottom: 1.25rem; }
+
+.para-en {
+  font-size: 0.97rem; color: var(--text-2); line-height: 1.85;
+}
+
+.para-zh {
+  margin-top: 0.6rem;
+  background: var(--zh-bg);
+  border-left: 2px solid var(--zh-border);
+  padding: 0.6rem 0.9rem;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.93rem; color: var(--zh-text);
+  line-height: 1.8;
+  display: none;
+}
+
+.no-translation {
+  margin-top: 2rem;
+  background: #fffbf5;
+  border: 1px solid #f0d9b5;
+  border-radius: var(--r);
+  padding: 1rem 1.25rem;
+  font-size: 0.83rem; color: #8a7050;
+  display: none;
+}
+.no-translation code {
+  background: #f0e8d8; padding: 1px 5px; border-radius: 3px;
+  font-family: 'DM Mono', monospace; font-size: 0.82em;
+}
+
+/* Language modes */
+body.lang-en  .para-zh  { display: none; }
+body.lang-zh  .para-en  { display: none; }
+body.lang-zh  .para-zh  { display: block; }
+body.lang-bi  .para-zh  { display: block; }
+body.lang-zh  .no-translation { display: block; }
+body.lang-bi  .no-translation { display: block; }
+
+/* ── HIGHLIGHT ── */
+mark { background: rgba(191,74,30,0.15); color: var(--accent); border-radius: 2px; padding: 0 2px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .site-header, .toolbar-inner { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .hero { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .main { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .articles-grid { grid-template-columns: 1fr; }
+  .reader-inner { padding: 1.5rem 1.25rem 5rem; max-width: 100%; }
+}
+
+/* ── ENTRANCE ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero        { animation: fadeUp 0.5s ease both; }
+.toolbar     { animation: fadeUp 0.5s 0.1s ease both; }
+.main        { animation: fadeUp 0.5s 0.15s ease both; }
+
+.article-card { animation: fadeUp 0.35s ease both; }
+.article-card:nth-child(1)  { animation-delay: 0ms; }
+.article-card:nth-child(2)  { animation-delay: 40ms; }
+.article-card:nth-child(3)  { animation-delay: 80ms; }
+.article-card:nth-child(4)  { animation-delay: 120ms; }
+.article-card:nth-child(5)  { animation-delay: 160ms; }
+.article-card:nth-child(6)  { animation-delay: 200ms; }
+</style>
+</head>
+<body class="lang-en">
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <a class="logo" href="#">
+    <span class="logo-name">Dan Koe</span>
+    <span class="logo-sep">/</span>
+    <span class="logo-sub">Knowledge Base</span>
+  </a>
+  <div class="header-right">
+    <span class="header-count"><strong id="headerCount">–</strong> essays</span>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">The One-Person Business Philosopher</div>
+      <h1>Build a life of<br><em>meaning & leverage.</em></h1>
+      <p class="hero-desc">
+        Complete collection of Dan Koe's essays on business, writing,
+        productivity, and the future of human work — with bilingual reading support.
+      </p>
+    </div>
+    <div class="hero-stats" id="heroStats">
+      <div class="stat-item">
+        <span class="stat-num" id="statTotal">–</span>
+        <span class="stat-label">Essays</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="statWords">–</span>
+        <span class="stat-label">Words</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="statHours">–</span>
+        <span class="stat-label">Reading hrs</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="statCats">5</span>
+        <span class="stat-label">Topics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOOLBAR ── -->
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search essays…" autocomplete="off" spellcheck="false">
+      <button class="search-clear" id="searchClear">✕</button>
+    </div>
+    <div class="filters" id="filtersRow">
+      <button class="filter-btn active" data-filter="all">All</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <div class="results-info" id="resultsInfo" style="display:none"></div>
+  <div id="articlesGrid">
+    <div class="state-box">
+      <div class="spinner"></div>
+      <p>Loading knowledge base…</p>
+    </div>
+  </div>
+</main>
+
+<!-- ── READER ── -->
+<div class="reader-overlay" id="readerOverlay">
+  <!-- 冻结顶栏：不随内容滚动 -->
+  <div class="reader-topbar">
+    <div class="reading-progress"><div class="reading-progress-bar" id="progressBar"></div></div>
+    <div class="reader-topbar-row">
+      <div class="view-tabs" id="viewTabs">
+        <button class="view-tab active" data-view="read">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Read
+        </button>
+        <button class="view-tab" data-view="map">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg>
+          Mind Map
+        </button>
+      </div>
+      <button class="reader-close" id="readerClose" title="Close (Esc)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <!-- 可滚动文章内容 -->
+  <div class="reader-body" id="readerBody">
+    <div class="reader-inner" id="readerContent"></div>
+  </div>
+  <!-- 思维导图视图 -->
+  <div class="reader-mindmap" id="readerMindmap" style="display:none">
+    <div class="mindmap-toolbar">
+      <span class="mindmap-hint">拖拽移动 · 滚轮缩放 · 点击节点折叠/展开</span>
+      <button class="mindmap-fit-btn" id="mindmapFit">重置视图</button>
+    </div>
+    <div class="mindmap-svg-wrap">
+      <div class="mindmap-loading" id="mindmapLoading"><div class="spinner"></div><span>生成思维导图…</span></div>
+      <svg id="markmapSvg"></svg>
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE = './data';
+let allArticles = [];
+let activeFilter = 'all';
+let activeQuery = '';
+let currentLang = 'en';
+
+// ── LOAD INDEX ──
+async function loadIndex() {
+  try {
+    const res = await fetch(`${BASE}/index.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status} – run build_data.py first`);
+    const data = await res.json();
+    allArticles = data.articles;
+
+    document.getElementById('headerCount').textContent = data.total;
+    const totalWords = allArticles.reduce((s,a) => s + a.word_count, 0);
+    const totalMins  = allArticles.reduce((s,a) => s + a.read_time, 0);
+    document.getElementById('statTotal').textContent = data.total;
+    document.getElementById('statWords').textContent = fmt(totalWords);
+    document.getElementById('statHours').textContent = Math.round(totalMins/60) + 'h';
+    document.getElementById('heroStats').style.display = '';
+
+    buildFilters(data.categories, data.category_counts);
+    renderGrid(allArticles, '');
+  } catch(e) {
+    document.getElementById('articlesGrid').innerHTML = `
+      <div class="state-box">
+        <h3>Data not found</h3>
+        <p>${e.message}</p>
+      </div>`;
+  }
+}
+
+function fmt(n) {
+  return n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? Math.round(n/1e3)+'K' : n+'';
+}
+
+// ── FILTERS ──
+function buildFilters(cats, counts) {
+  const row = document.getElementById('filtersRow');
+  cats.forEach(cat => {
+    const b = document.createElement('button');
+    b.className = 'filter-btn';
+    b.dataset.filter = cat;
+    b.textContent = cat.split(' & ')[0] + ` (${counts[cat]})`;
+    row.appendChild(b);
+  });
+  row.addEventListener('click', e => {
+    const b = e.target.closest('.filter-btn');
+    if (!b) return;
+    row.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeFilter = b.dataset.filter;
+    applyFilters();
+  });
+}
+
+function applyFilters() {
+  let list = allArticles;
+  if (activeFilter !== 'all') list = list.filter(a => a.category === activeFilter);
+  if (activeQuery) {
+    const q = activeQuery.toLowerCase();
+    list = list.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.excerpt.toLowerCase().includes(q) ||
+      a.category.toLowerCase().includes(q)
+    );
+  }
+  renderGrid(list, activeQuery);
+}
+
+// ── RENDER GRID ──
+function renderGrid(articles, q) {
+  const grid = document.getElementById('articlesGrid');
+  const info = document.getElementById('resultsInfo');
+
+  if (q || activeFilter !== 'all') {
+    info.style.display = 'block';
+    info.innerHTML = `Showing <strong>${articles.length}</strong> of ${allArticles.length} essays`;
+  } else {
+    info.style.display = 'none';
+  }
+
+  if (!articles.length) {
+    grid.innerHTML = `<div class="state-box"><h3>No results</h3><p>Try different search terms.</p></div>`;
+    return;
+  }
+
+  const wrap = document.createElement('div');
+  wrap.className = 'articles-grid';
+  articles.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'article-card';
+    card.dataset.cat = a.category;
+    card.innerHTML = `
+      <div class="card-meta">
+        <span class="cat-pill">${hl(a.category.split(' & ')[0], q)}</span>
+        <span class="card-time">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ${a.read_time}m
+        </span>
+      </div>
+      <div class="card-title">${hl(a.title, q)}</div>
+      <div class="card-excerpt">${hl(a.excerpt, q)}</div>
+      <div class="card-footer">
+        <span class="card-meta-bottom">${a.section_count} sections · ${fmt(a.word_count)} words</span>
+        <span class="card-read-arrow">Read →</span>
+      </div>`;
+    card.addEventListener('click', () => openReader(a.id));
+    wrap.appendChild(card);
+  });
+  grid.innerHTML = '';
+  grid.appendChild(wrap);
+}
+
+function hl(text, q) {
+  const s = esc(text);
+  if (!q) return s;
+  return s.replace(new RegExp(`(${escRe(q)})`, 'gi'), '<mark>$1</mark>');
+}
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+// ── READER ──
+async function openReader(id) {
+  const overlay = document.getElementById('readerOverlay');
+  const content = document.getElementById('readerContent');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  content.innerHTML = '<div class="state-box"><div class="spinner"></div><p>Loading…</p></div>';
+
+  try {
+    const res = await fetch(`${BASE}/articles/${id}.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const article = await res.json();
+    renderArticle(article, content, overlay);
+  } catch(e) {
+    content.innerHTML = `<div class="state-box"><h3>Load failed</h3><p>${e.message}</p></div>`;
+  }
+}
+
+function renderArticle(article, container, overlay) {
+  // Check if any section has zh translation
+  const hasZh = article.sections.some(s => s.content_zh && s.content_zh.trim());
+
+  const tocHtml = article.sections.length > 1
+    ? `<div class="toc">
+        <div class="toc-label">Contents</div>
+        <ul class="toc-list">${article.sections.map((s,i)=>
+          `<li><a href="#sec-${i}">${esc(s.title)}</a></li>`
+        ).join('')}</ul>
+       </div>` : '';
+
+  const sectionsHtml = article.sections.map((s,i) => {
+    const paras = splitParagraphs(s.content);
+    const parasZh = s.content_zh ? splitParagraphs(s.content_zh) : [];
+    const paraHtml = paras.map((p, pi) => `
+      <div class="para-block">
+        <div class="para-en">${esc(p)}</div>
+        ${parasZh[pi] ? `<div class="para-zh">${esc(parasZh[pi])}</div>` : ''}
+      </div>`).join('');
+
+    return `
+      <div class="article-section" id="sec-${i}">
+        ${s.title && s.title !== 'Introduction' && s.title !== 'Content'
+          ? `<h2 class="section-heading">${esc(s.title)}</h2>` : ''}
+        ${paraHtml}
+      </div>`;
+  }).join('');
+
+  const noTransNote = !hasZh ? `
+    <div class="no-translation">
+      <strong>翻译未生成。</strong>
+      请运行 <code>python translate.py</code> 生成中文翻译，然后刷新页面。
+    </div>` : '';
+
+  const sourceLink = article.url
+    ? `<a href="${esc(article.url)}" target="_blank" rel="noopener">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>Source</a>` : '';
+
+  container.innerHTML = `
+    <div class="reader-header">
+      <div class="reader-eyebrow">
+        <span class="cat-pill" style="
+          ${article.category === 'Business & Money'    ? 'color:var(--cat-biz);background:rgba(37,99,168,0.1)' :
+            article.category === 'Content & Writing'  ? 'color:var(--cat-content);background:rgba(58,140,58,0.1)' :
+            article.category === 'Future & AI'        ? 'color:var(--cat-future);background:rgba(139,63,168,0.1)' :
+            article.category === 'Productivity & Focus' ? 'color:var(--cat-prod);background:rgba(26,138,122,0.1)' :
+                                                          'color:var(--cat-mindset);background:rgba(191,74,30,0.1)'}
+        ">${esc(article.category)}</span>
+      </div>
+      <h1 class="reader-title">${esc(article.title)}</h1>
+      <div class="reader-meta">
+        <span>${esc(article.author)}</span>
+        <span>${article.read_time} min read</span>
+        <span>${fmt(article.word_count)} words</span>
+        ${sourceLink}
+      </div>
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="bi">双语</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+      </div>
+    </div>
+    ${tocHtml}
+    ${sectionsHtml}
+    ${noTransNote}
+  `;
+
+  document.getElementById('readerBody').scrollTop = 0;
+  setupLangToggle(container);
+  setupReadingProgress();
+  setupViewTabs(article);
+}
+
+// ── VIEW TABS (Read / Mind Map) ──
+let currentArticle = null;
+let markmapInstance = null;
+
+function setupViewTabs(article) {
+  currentArticle = article;
+  const tabs = document.getElementById('viewTabs');
+
+  // Reset to Read tab
+  tabs.querySelectorAll('.view-tab').forEach(b => b.classList.toggle('active', b.dataset.view === 'read'));
+  document.getElementById('readerBody').style.display = '';
+  document.getElementById('readerMindmap').style.display = 'none';
+
+  tabs.onclick = e => {
+    const b = e.target.closest('.view-tab');
+    if (!b) return;
+    tabs.querySelectorAll('.view-tab').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const view = b.dataset.view;
+    document.getElementById('readerBody').style.display    = view === 'read' ? '' : 'none';
+    document.getElementById('readerMindmap').style.display = view === 'map'  ? '' : 'none';
+    if (view === 'map') renderMindMap(currentArticle);
+  };
+}
+
+// ── MIND MAP ──
+
+// 等待 markmap 库加载完毕（最多 12 秒）
+async function waitForMarkmap() {
+  // autoloader 可能需要先 install()
+  if (window.markmap && window.markmap.autoLoader && !window.markmap.Transformer) {
+    try { await window.markmap.autoLoader.install(); } catch(e) { /* ignore */ }
+  }
+  for (let i = 0; i < 40; i++) {
+    const mm = window.markmap;
+    if (mm && mm.Transformer && mm.Markmap) return mm;
+    await new Promise(r => setTimeout(r, 300));
+  }
+  return null;
+}
+
+async function renderMindMap(article) {
+  const wrap    = document.querySelector('.mindmap-svg-wrap');
+  const loading = document.getElementById('mindmapLoading');
+  const svgEl   = document.getElementById('markmapSvg');
+  const fitBtn  = document.getElementById('mindmapFit');
+
+  loading.style.display = 'flex';
+  loading.innerHTML = '<div class="spinner"></div><span>加载思维导图…</span>';
+  svgEl.style.display = 'none';
+
+  // Remove previous image if any
+  const prevImg = wrap.querySelector('.mindmap-png');
+  if (prevImg) prevImg.remove();
+
+  // ── 优先使用预制 PNG 图片 ──
+  if (article.mindmap_img) {
+    const img = document.createElement('img');
+    img.className = 'mindmap-png';
+    img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:none;padding:1rem;';
+    img.src = article.mindmap_img;
+    wrap.appendChild(img);
+
+    img.onload = () => {
+      loading.style.display = 'none';
+      img.style.display = 'block';
+      fitBtn.style.display = 'none'; // PNG 不需要重置视图
+    };
+    img.onerror = () => {
+      img.remove();
+      renderAutoMindmap(article, loading, svgEl, fitBtn);
+    };
+    return;
+  }
+
+  // ── 回退：markmap 自动生成 ──
+  renderAutoMindmap(article, loading, svgEl, fitBtn);
+}
+
+async function renderAutoMindmap(article, loading, svgEl, fitBtn) {
+  fitBtn.style.display = '';
+  loading.innerHTML = '<div class="spinner"></div><span>自动生成思维导图…</span>';
+
+  const mm = await waitForMarkmap();
+  if (!mm) {
+    loading.innerHTML = '<span style="color:var(--cat-mindset)">库加载失败，请检查网络后刷新重试。</span>';
+    return;
+  }
+
+  const md = buildMindmapMarkdown(article);
+  try {
+    const transformer = new mm.Transformer();
+    const { root } = transformer.transform(md);
+    svgEl.innerHTML = '';
+    markmapInstance = mm.Markmap.create(svgEl, {
+      autoFit: true, duration: 400, maxWidth: 260, colorFreezeLevel: 2,
+    }, root);
+    loading.style.display = 'none';
+    svgEl.style.display = 'block';
+    setTimeout(() => markmapInstance && markmapInstance.fit(), 150);
+  } catch(e) {
+    loading.innerHTML = `<span style="color:var(--cat-mindset)">渲染失败: ${e.message}</span>`;
+  }
+}
+
+// 重置视图按钮
+document.getElementById('mindmapFit').onclick = () => {
+  if (markmapInstance) markmapInstance.fit();
+};
+
+function buildMindmapMarkdown(article) {
+  const lines = [`# ${article.title}`];
+  for (const sec of article.sections) {
+    const label = (!sec.title || sec.title === 'Introduction' || sec.title === 'Content')
+      ? 'Overview' : sec.title;
+    lines.push(`## ${label}`);
+    const pts = extractKeyPoints(sec.content, 3);
+    pts.forEach(p => lines.push(`- ${p}`));
+  }
+  return lines.join('\n');
+}
+
+function extractKeyPoints(text, max) {
+  if (!text) return [];
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  const out = [];
+  const SKIP = /^(And |But |So |Well |Now |Okay |Right |Because |When |If |The thing|That's|This is|Um |Uh )/i;
+  for (const raw of sentences) {
+    const s = raw.trim();
+    if (s.length >= 25 && s.length <= 110 && !SKIP.test(s)) {
+      out.push(s.length > 95 ? s.slice(0, 92) + '…' : s);
+      if (out.length >= max) break;
+    }
+  }
+  // fallback: 取前几句截断
+  if (out.length === 0) {
+    for (const raw of sentences.slice(0, max)) {
+      const s = raw.trim();
+      if (s.length > 15) out.push(s.length > 95 ? s.slice(0, 92) + '…' : s);
+    }
+  }
+  return out.slice(0, max);
+}
+
+function setupLangToggle(container) {
+  const toggle = container.querySelector('#langToggle');
+  if (!toggle) return;
+
+  // Restore last used language
+  toggle.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === currentLang);
+  });
+  document.body.className = 'lang-' + currentLang;
+
+  toggle.addEventListener('click', e => {
+    const b = e.target.closest('.lang-btn');
+    if (!b) return;
+    currentLang = b.dataset.lang;
+    toggle.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.body.className = 'lang-' + currentLang;
+  });
+}
+
+function setupReadingProgress() {
+  const bar  = document.getElementById('progressBar');
+  const body = document.getElementById('readerBody');
+  body.onscroll = () => {
+    const s = body.scrollTop;
+    const h = body.scrollHeight - body.clientHeight;
+    bar.style.width = (h > 0 ? Math.min(100, s/h*100) : 0) + '%';
+  };
+}
+
+function splitParagraphs(text) {
+  if (!text) return [];
+  // Try double-newline split first
+  const byBlankLine = text.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+  if (byBlankLine.length > 1) return byBlankLine;
+
+  // For long text, split into ~400-char chunks at sentence boundaries
+  if (text.length > 600) {
+    const sentences = text.match(/[^.!?]+[.!?]+\s*/g) || [text];
+    const chunks = [];
+    let cur = '';
+    for (const s of sentences) {
+      cur += s;
+      if (cur.length > 400) { chunks.push(cur.trim()); cur = ''; }
+    }
+    if (cur.trim()) chunks.push(cur.trim());
+    return chunks.length > 0 ? chunks : [text];
+  }
+  return [text];
+}
+
+function closeReader() {
+  document.getElementById('readerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.body.className = 'lang-' + currentLang;
+  markmapInstance = null;
+  currentArticle  = null;
+}
+
+// ── SEARCH ──
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+let searchTimer;
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  const q = searchInput.value.trim();
+  searchClear.style.display = q ? 'block' : 'none';
+  searchTimer = setTimeout(() => { activeQuery = q; applyFilters(); }, 200);
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = ''; searchClear.style.display = 'none';
+  activeQuery = ''; applyFilters();
+});
+
+// ── KEYBOARD ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeReader();
+  if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+    if (!document.getElementById('readerOverlay').classList.contains('open')) {
+      e.preventDefault(); searchInput.focus();
+    }
+  }
+});
+document.getElementById('readerClose').addEventListener('click', closeReader);
+
+// ── INIT ──
+loadIndex();
+</script>
+</body>
+</html>
